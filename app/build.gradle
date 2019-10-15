@@ -1,8 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -40,4 +39,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    def archRoomVersion = '1.0.0-alpha3' // OBS: Adicionar versão mais recente
+    implementation "android.arch.persistence.room:runtime:$archRoomVersion"
+    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
 }

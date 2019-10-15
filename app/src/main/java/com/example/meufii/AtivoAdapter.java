@@ -28,13 +28,18 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
 
     @Override
     public void onBindViewHolder(@NonNull AtivoViewHolder holder, int position) {
-        holder.nome.setText(ativos.get(position).nome);
-        holder.codigo.setText(ativos.get(position).codigo);
+        holder.nome.setText(ativos.get(position).getNome());
+        holder.codigo.setText(ativos.get(position).getCodigo());
     }
 
     @Override
     public int getItemCount() {
         return ativos == null ? 0 : ativos.size();
+    }
+
+    public void setAtivos(List<Ativo> ativos) {
+        this.ativos = ativos;
+        notifyDataSetChanged();
     }
 
     public class AtivoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
