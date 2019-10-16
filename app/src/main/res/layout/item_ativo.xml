@@ -5,19 +5,51 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".HomeActivity">
+        tools:context=".HomeActivity"
+android:padding="16dp"
+android:layout_marginBottom="8dp"
+android:background="#333333">
 
     <TextView
             android:id="@+id/nome"
             android:layout_width="0dp" android:layout_height="16dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
+    tools:text="XP CORPORATE"
+            android:textSize="10sp"
+            android:textColor="#aaaaaa"
+    />
 
     <TextView
             android:id="@+id/codigo"
             android:layout_width="0dp" android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/nome" app:layout_constraintEnd_toEndOf="@+id/nome"
-            app:layout_constraintStart_toStartOf="@+id/nome"/>
+            app:layout_constraintTop_toBottomOf="@+id/nome"
+            app:layout_constraintStart_toStartOf="@+id/nome"
+            tools:text="XPCM11"
+    android:textSize="22sp"
+    android:textStyle="bold"
+    android:textColor="#ffffff"/>
+
+	<TextView
+			android:id="@+id/quantidade_cotas"
+			android:layout_width="0dp" android:layout_height="wrap_content"
+			android:hint="3 cotas"
+			android:text="3 cotas"
+			android:textSize="16sp"
+			android:textStyle="bold"
+			android:textColor="#ffffff"
+			app:layout_constraintStart_toStartOf="@+id/codigo"
+			app:layout_constraintTop_toBottomOf="@+id/codigo"/>
+
+	<TextView
+			android:id="@+id/valor_investido"
+			android:layout_width="0dp" android:layout_height="wrap_content"
+			android:gravity="right"
+			android:text="R$3"
+			android:textSize="22sp"
+			android:textStyle="bold"
+			android:textColor="#ffffff"
+			android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"
+			android:layout_marginRight="8dp" android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+			android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

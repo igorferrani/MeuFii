@@ -49,24 +49,21 @@ class HomeActivity : AppCompatActivity() {
         buttonCompra.setOnClickListener {
             openMovimentacao()
         }
-
-        var buttonVenda = findViewById<Button>(R.id.btn_registrar_venda)
-        buttonVenda.setOnClickListener {
-            openMovimentacao()
-        }
     }
 
     fun openMovimentacao(ativo: Ativo? = null) {
         val intent = Intent(this, MovimentacaoActivity::class.java)
         if (ativo != null) {
-            intent.putExtra("ativo", "valor")
+            intent.putExtra("ativo", ativo)
         }
         startActivityForResult(intent, 123)
     }
 
     fun initDb() {
         //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii-db").allowMainThreadQueries().build()
+        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii2-db")
+            .allowMainThreadQueries()
+            .build()
     }
 
     fun buscaAtivos(): List<Ativo>? {

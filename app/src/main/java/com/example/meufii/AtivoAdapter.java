@@ -30,6 +30,11 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
     public void onBindViewHolder(@NonNull AtivoViewHolder holder, int position) {
         holder.nome.setText(ativos.get(position).getNome());
         holder.codigo.setText(ativos.get(position).getCodigo());
+
+        Float valorInvestido = ativos.get(position).getValorCota() * ativos.get(position).getQuantidadeCotas();
+
+        holder.valorInvestido.setText(Float.toString(valorInvestido));
+        holder.quantidadeCotas.setText(Integer.toString(ativos.get(position).getQuantidadeCotas()));
     }
 
     @Override
@@ -46,12 +51,16 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
 
         private TextView nome;
         private TextView codigo;
+        private TextView valorInvestido;
+        private TextView quantidadeCotas;
 
         private AtivoViewHolder(@NonNull View itemView) {
             super(itemView);
 
             nome = itemView.findViewById(R.id.nome);
             codigo = itemView.findViewById(R.id.codigo);
+            valorInvestido = itemView.findViewById(R.id.valor_investido);
+            quantidadeCotas = itemView.findViewById(R.id.quantidade_cotas);
 
             itemView.setOnClickListener(this);
         }
