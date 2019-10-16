@@ -17,7 +17,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val ativo = "XPCM11"
     private val url = "https://fiis.com.br/$ativo/?aba=tabela"
-    //private val ativos = arrayListOf(Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"),Ativo("XP CORPORATE", "XPCM11"))
+    private var ativos: List<Ativo>? = null
     private lateinit var adapterAtivo: AtivoAdapter
 
 
@@ -39,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
         val rv_ativos = findViewById<RecyclerView>(R.id.rv_ativos)
         adapterAtivo = AtivoAdapter(null)
         adapterAtivo.setOnItemClickAtivo {
-            openMovimentacao()
+            openMovimentacao(ativos!!.get(it))
         }
         rv_ativos.adapter = adapterAtivo
         val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -56,8 +56,11 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun openMovimentacao() {
+    fun openMovimentacao(ativo: Ativo? = null) {
         val intent = Intent(this, MovimentacaoActivity::class.java)
+        if (ativo != null) {
+            intent.putExtra("ativo", "valor")
+        }
         startActivityForResult(intent, 123)
     }
 
@@ -67,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun buscaAtivos(): List<Ativo>? {
-        val ativos = database?.ativoDao()?.getAllAtivos()
+        ativos = database?.ativoDao()?.getAllAtivos()
         return ativos
     }
 

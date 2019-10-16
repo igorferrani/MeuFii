@@ -25,6 +25,7 @@ class MovimentacaoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movimentacao)
 
         initView()
+        initVariables()
         initDb()
     }
 
@@ -41,6 +42,11 @@ class MovimentacaoActivity : AppCompatActivity() {
         btnRegistrar.setOnClickListener {
             register()
         }
+    }
+
+    fun initVariables() {
+        val ativo = intent.extras!!["ativo"]
+        val a = ""
     }
 
     fun register() {
