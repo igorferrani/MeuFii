@@ -11,104 +11,122 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_nome"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_excluir"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" >
+            android:layout_marginTop="16dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nome" android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nome do fundo" android:layout_marginTop="16dp" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_codigo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="@+id/til_nome"
-            app:layout_constraintTop_toBottomOf="@+id/til_nome"
-            app:layout_constraintEnd_toEndOf="@+id/til_nome">
-
-        <com.google.android.material.textfield.TextInputEditText android:id="@+id/codigo"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="16dp"
-                  android:hint="Código do fundo na bolsa"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_data"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/til_codigo"
-            app:layout_constraintStart_toStartOf="@+id/til_codigo"
-            app:layout_constraintTop_toBottomOf="@+id/til_codigo"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/data"
-                  android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:layout_marginTop="16dp"
-                android:inputType="number"
-                  android:hint="Data da movimentação"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_valor_cota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/til_data"
-            app:layout_constraintStart_toStartOf="@+id/til_data"
-            app:layout_constraintTop_toBottomOf="@+id/til_data"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/valor_retornado"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Nome do fundo" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_codigo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                android:hint="Valor da cota"
-                android:inputType="number"
-            android:digits="1234567890."/>
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/til_nome"
+                app:layout_constraintStart_toStartOf="@+id/til_nome"
+                app:layout_constraintTop_toBottomOf="@+id/til_nome">
 
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/codigo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Código do fundo na bolsa" />
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/til_valor_cota"
-            app:layout_constraintEnd_toEndOf="@+id/til_valor_cota"
-            app:layout_constraintStart_toStartOf="@+id/til_valor_cota"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp">
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/quantidade_cotas"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:hint="Quantidade de cotas"
-            android:inputType="number"
-            android:digits="1234567890."/>
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@+id/til_codigo"
+                app:layout_constraintStart_toStartOf="@+id/til_codigo"
+                app:layout_constraintTop_toBottomOf="@+id/til_codigo">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Data da movimentação"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_valor_cota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/til_data"
+                app:layout_constraintStart_toStartOf="@+id/til_data"
+                app:layout_constraintTop_toBottomOf="@+id/til_data">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/valor_retornado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:digits="1234567890."
+                    android:hint="Valor da cota"
+                    android:inputType="number" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/til_valor_cota"
+                app:layout_constraintStart_toStartOf="@+id/til_valor_cota"
+                app:layout_constraintTop_toBottomOf="@+id/til_valor_cota">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/quantidade_cotas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890."
+                    android:hint="Quantidade de cotas"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <Button
             android:id="@+id/btn_excluir"
