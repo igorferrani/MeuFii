@@ -45,7 +45,7 @@ class HomeActivity : AppCompatActivity() {
     @SuppressLint("WrongConstant")
     fun initView() {
         val rv_ativos = findViewById<RecyclerView>(R.id.rv_ativos)
-        adapterAtivo = AtivoAdapter(null)
+        adapterAtivo = AtivoAdapter(this, null)
         adapterAtivo.setOnItemClickAtivo {
             openMovimentacao(ativos!!.get(it))
         }
@@ -59,6 +59,14 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    fun getTotalInvestimento(): Float {
+        var aux: Float = 0f
+        for (ativo: Ativo in ativos!!) {
+            aux += ativo.quantidadeCotas * ativo.valorCota
+        }
+        return aux
+    }
+
     fun openMovimentacao(ativo: Ativo? = null) {
         val intent = Intent(this, MovimentacaoActivity::class.java)
         if (ativo != null) {
@@ -69,19 +77,23 @@ class HomeActivity : AppCompatActivity() {
 
     fun initDb() {
         //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii2-db")
+        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii3-db")
             .allowMainThreadQueries()
             .build()
     }
 
     fun buscaAtivos(): List<Ativo>? {
-        ativos = database?.ativoDao()?.getAllAtivos()
-        return ativos
+        return database?.ativoDao()?.getAllAtivos()
     }
 
     fun setup() {
-        val ativos = buscaAtivos()
+        ativos = buscaAtivos()
         adapterAtivo.setAtivos(ativos)
+
+        val valorTotalInvestido = findViewById<TextView>(R.id.valor_total_investido)
+        valorTotalInvestido.text = UtilFormat.formatDecimal(getTotalInvestimento())
+
+        val valorTotalRendimentos = findViewById<TextView>(R.id.valor_total_rendimentos)
     }
 
     fun buscaFiiAtivos() {

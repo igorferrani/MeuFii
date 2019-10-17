@@ -13,24 +13,62 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-    <include
+        <include
             android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
+            layout="@layout/toolbar" />
 
-    <androidx.recyclerview.widget.RecyclerView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_resumo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="8dp"
-            android:clipToPadding="false"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <TextView
+                android:id="@+id/valor_total_investido"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="R$0,00" />
+
+            <TextView
+                android:id="@+id/valor_total_rendimentos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorNeutral"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="@+id/valor_total_investido"
+                app:layout_constraintStart_toStartOf="@+id/valor_total_investido"
+                app:layout_constraintTop_toBottomOf="@+id/valor_total_investido"
+                android:text="R$0,00" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_ativos"
-            tools:listitem="@layout/item_ativo"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:layout_marginTop="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cl_resumo"
             tools:itemCount="4"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            tools:listitem="@layout/item_ativo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -49,7 +49,7 @@ class MovimentacaoActivity : AppCompatActivity() {
 
     private fun initDb() {
         //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii2-db").allowMainThreadQueries().build()
+        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii3-db").allowMainThreadQueries().build()
     }
 
     private fun initView() {
@@ -57,7 +57,7 @@ class MovimentacaoActivity : AppCompatActivity() {
         etCodigo = findViewById(R.id.codigo)
         etCodigo.filters = arrayOf<InputFilter>(InputFilter.AllCaps())
         etDate = findViewById(R.id.data)
-        etValorCota = findViewById(R.id.valor_cota)
+        etValorCota = findViewById(R.id.valor_retornado)
         etQuantidadeCotas = findViewById(R.id.quantidade_cotas)
         btnRegistrar = findViewById(R.id.btn_registrar)
         btnRegistrar.setOnClickListener {

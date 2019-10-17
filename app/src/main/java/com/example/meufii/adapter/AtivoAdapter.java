@@ -1,5 +1,6 @@
 package com.example.meufii.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,10 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
 
     private List<Ativo> ativos;
     private ItemClickListener itemClickListener;
+    private Context context;
 
-    public AtivoAdapter(List<Ativo> ativos) {
+    public AtivoAdapter(Context context, List<Ativo> ativos) {
+        this.context = context;
         this.ativos = ativos;
     }
 
@@ -36,7 +39,14 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
         holder.codigo.setText(ativos.get(position).getCodigo());
 
         holder.valorInvestido.setText(ativos.get(position).getValorInvestidoFormatado());
-        holder.valorCota.setText(ativos.get(position).getValorCotaFormatado());
+        holder.valorRetornado.setText(ativos.get(position).getValorRetornadoFormatado());
+
+        if (ativos.get(position).getValorRetornado() >= 0) {
+            holder.valorRetornado.setTextColor(context.getResources().getColor(R.color.colorPositive));
+        } else {
+            holder.valorRetornado.setTextColor(context.getResources().getColor(R.color.colorNegative));
+        }
+
         holder.quantidadeCotas.setText(Integer.toString(ativos.get(position).getQuantidadeCotas()));
     }
 
@@ -55,7 +65,7 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
         private TextView nome;
         private TextView codigo;
         private TextView valorInvestido;
-        private TextView valorCota;
+        private TextView valorRetornado;
         private TextView quantidadeCotas;
 
         private AtivoViewHolder(@NonNull View itemView) {
@@ -64,7 +74,7 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
             nome = itemView.findViewById(R.id.nome);
             codigo = itemView.findViewById(R.id.codigo);
             valorInvestido = itemView.findViewById(R.id.valor_investido);
-            valorCota = itemView.findViewById(R.id.valor_cota);
+            valorRetornado = itemView.findViewById(R.id.valor_retornado);
             quantidadeCotas = itemView.findViewById(R.id.quantidade_cotas);
 
             itemView.setOnClickListener(this);

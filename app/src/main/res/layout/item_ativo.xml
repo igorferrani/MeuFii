@@ -19,7 +19,7 @@
 		<TextView
 				android:id="@+id/nome"
 				android:layout_width="0dp"
-				android:layout_height="16dp"
+				android:layout_height="wrap_content"
 				app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
 				tools:text="XP CORPORATE"
 				android:textSize="10sp"
@@ -64,14 +64,13 @@
 				android:gravity="right"
 				android:text="R$3.000,00"
 				android:textSize="22sp"
-
 				android:textColor="#ffffff"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/nome"
 				app:layout_constraintBottom_toBottomOf="@+id/codigo"/>
 
 		<TextView
-				android:id="@+id/valor_cota"
+				android:id="@+id/valor_retornado"
 				android:layout_width="0dp" android:layout_height="wrap_content"
 				android:gravity="right"
 				android:text="R$300,00"

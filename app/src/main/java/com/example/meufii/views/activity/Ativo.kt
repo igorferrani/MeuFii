@@ -12,13 +12,15 @@ data class Ativo(var nome: String,
                  var codigo: String,
                  @PrimaryKey val uuid: String = UUID.randomUUID().toString(),
                  var valorCota: Float = 0f,
-                 var quantidadeCotas: Int = 0) : Parcelable {
+                 var quantidadeCotas: Int = 0,
+                 val valorRetornado: Float = 0f) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readFloat(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readFloat()
     )
 
     @Ignore
@@ -28,6 +30,7 @@ data class Ativo(var nome: String,
         parcel.writeString(uuid)
         parcel.writeFloat(valorCota)
         parcel.writeInt(quantidadeCotas)
+        parcel.writeFloat(valorRetornado)
     }
 
     @Ignore
@@ -51,7 +54,7 @@ data class Ativo(var nome: String,
         return UtilFormat.formatDecimal(valorCota * quantidadeCotas)
     }
 
-    fun getValorCotaFormatado(): String {
-        return UtilFormat.formatDecimal(valorCota)
+    fun getValorRetornadoFormatado(): String {
+        return UtilFormat.formatDecimal(valorRetornado)
     }
 }

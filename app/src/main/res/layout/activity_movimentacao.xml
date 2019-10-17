@@ -81,12 +81,13 @@
             android:layout_marginEnd="8dp">
 
         <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/valor_cota"
+                android:id="@+id/valor_retornado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="Valor da cota"
-                android:inputType="number"/>
+                android:inputType="number"
+            android:digits="1234567890."/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +105,9 @@
                 android:id="@+id/quantidade_cotas"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:hint="Quantidade de cotas"/>
+              android:hint="Quantidade de cotas"
+            android:inputType="number"
+            android:digits="1234567890."/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
