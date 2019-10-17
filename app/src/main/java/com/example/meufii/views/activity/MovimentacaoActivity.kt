@@ -1,14 +1,13 @@
-package com.example.meufii
+package com.example.meufii.views.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toolbar
 import androidx.room.Room
+import com.example.meufii.R
 import com.google.android.material.textfield.TextInputEditText
 
 
@@ -33,7 +32,9 @@ class MovimentacaoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movimentacao)
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-        toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(R.string.title_home)
+        toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(
+            R.string.title_home
+        )
 
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -93,10 +94,14 @@ class MovimentacaoActivity : AppCompatActivity() {
 
             database?.ativoDao()?.updateAtivo(ativo!!)
         } else {
-            database?.ativoDao()?.insertAtivo(Ativo(etNome.text.toString(),
-                etCodigo.text.toString(),
-                valorCota = etValorCota.text.toString().toFloat(),
-                quantidadeCotas = etQuantidadeCotas.text.toString().toInt()))
+            database?.ativoDao()?.insertAtivo(
+                Ativo(
+                    etNome.text.toString(),
+                    etCodigo.text.toString(),
+                    valorCota = etValorCota.text.toString().toFloat(),
+                    quantidadeCotas = etQuantidadeCotas.text.toString().toInt()
+                )
+            )
         }
         finish()
     }

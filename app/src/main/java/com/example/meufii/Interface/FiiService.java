@@ -1,4 +1,4 @@
-package com.example.meufii;
+package com.example.meufii.Interface;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

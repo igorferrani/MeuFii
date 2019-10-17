@@ -1,4 +1,4 @@
-package com.example.meufii
+package com.example.meufii.views.activity
 
 import android.os.Parcel
 import android.os.Parcelable

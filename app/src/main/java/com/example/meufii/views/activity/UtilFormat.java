@@ -1,4 +1,4 @@
-package com.example.meufii;
+package com.example.meufii.views.activity;
 
 import java.text.NumberFormat;
 import java.util.Locale;

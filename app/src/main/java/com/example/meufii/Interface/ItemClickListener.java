@@ -1,4 +1,4 @@
-package com.example.meufii;
+package com.example.meufii.Interface;
 
 public interface ItemClickListener {
 

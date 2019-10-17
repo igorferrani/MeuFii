@@ -1,4 +1,4 @@
-package com.example.meufii
+package com.example.meufii.views.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.example.meufii.R
+import com.example.meufii.adapter.AtivoAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -31,7 +33,9 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(R.string.title_home)
+        toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(
+            R.string.title_home
+        )
 
         initView()
         initDb()

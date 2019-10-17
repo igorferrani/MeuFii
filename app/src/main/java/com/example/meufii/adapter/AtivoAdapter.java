@@ -1,4 +1,4 @@
-package com.example.meufii;
+package com.example.meufii.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,6 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.meufii.views.activity.Ativo;
+import com.example.meufii.Interface.ItemClickListener;
+import com.example.meufii.R;
 
 import java.util.List;
 
