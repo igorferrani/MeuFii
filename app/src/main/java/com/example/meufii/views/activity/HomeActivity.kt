@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     @SuppressLint("WrongConstant")
-    fun initView() {
+    private fun initView() {
         val rv_ativos = findViewById<RecyclerView>(R.id.rv_ativos)
         adapterAtivo = AtivoAdapter(this, null)
         adapterAtivo.setOnItemClickAtivo {
@@ -59,15 +59,15 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun getTotalInvestimento(): Float {
+    private fun getTotalInvestimento(): Float {
         var aux: Float = 0f
         for (ativo: Ativo in ativos!!) {
-            aux += ativo.quantidadeCotas * ativo.valorCota
+            aux += ativo.valorTotal
         }
         return aux
     }
 
-    fun openMovimentacao(ativo: Ativo? = null) {
+    private fun openMovimentacao(ativo: Ativo? = null) {
         val intent = Intent(this, MovimentacaoActivity::class.java)
         if (ativo != null) {
             intent.putExtra("ativo", ativo)
@@ -75,19 +75,51 @@ class HomeActivity : AppCompatActivity() {
         startActivityForResult(intent, 123)
     }
 
-    fun initDb() {
-        //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii3-db")
+    private fun initDb() {
+        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii4-db")
             .allowMainThreadQueries()
             .build()
     }
 
-    fun buscaAtivos(): List<Ativo>? {
-        return database?.ativoDao()?.getAllAtivos()
+    private fun buscaOperacoes(): List<Ativo> {
+        val aux =  database?.operacaoDao()?.getAllOperacoes()
+        return processaListaOperacoes(aux)
     }
 
-    fun setup() {
-        ativos = buscaAtivos()
+    private fun processaListaOperacoes(operacoes: List<Operacao>?): List<Ativo> {
+        val aux = ArrayList<Ativo>()
+        if (operacoes != null) {
+            for (operacao in operacoes) {
+                val ativo = verificaSePossuiOperacaoEmAtivos(aux, operacao)
+                if (ativo != null) {
+                    ativo.quantidadeCotas += operacao.quantidadeCotas
+                    ativo.valorTotal += operacao.valorCota * operacao.quantidadeCotas
+                } else {
+                    aux.add(
+                        Ativo(
+                            operacao.nome,
+                            operacao.codigo,
+                            operacao.valorCota * operacao.quantidadeCotas,
+                            operacao.quantidadeCotas
+                        )
+                    )
+                }
+            }
+        }
+        return aux
+    }
+
+    private fun verificaSePossuiOperacaoEmAtivos(ativos: List<Ativo>, operacao: Operacao): Ativo? {
+        for (ativo in ativos) {
+            if (ativo.codigo.equals(operacao.codigo)) {
+                return ativo
+            }
+        }
+        return null
+    }
+
+    private fun setup() {
+        ativos = buscaOperacoes()
         adapterAtivo.setAtivos(ativos)
 
         val valorTotalInvestido = findViewById<TextView>(R.id.valor_total_investido)
@@ -96,7 +128,7 @@ class HomeActivity : AppCompatActivity() {
         val valorTotalRendimentos = findViewById<TextView>(R.id.valor_total_rendimentos)
     }
 
-    fun buscaFiiAtivos() {
+    private fun buscaFiiAtivos() {
         GlobalScope.launch {
             val doc = Jsoup.connect(url).get()
             val tabela = doc.getElementById("tabela")

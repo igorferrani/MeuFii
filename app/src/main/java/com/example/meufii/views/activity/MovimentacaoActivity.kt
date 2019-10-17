@@ -13,7 +13,7 @@ import com.google.android.material.textfield.TextInputEditText
 
 class MovimentacaoActivity : AppCompatActivity() {
 
-    private var ativo: Ativo? = null
+    private var operacao: Operacao? = null
 
     private lateinit var etNome: TextInputEditText
     private lateinit var etCodigo: TextInputEditText
@@ -49,7 +49,7 @@ class MovimentacaoActivity : AppCompatActivity() {
 
     private fun initDb() {
         //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii3-db").allowMainThreadQueries().build()
+        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii4-db").allowMainThreadQueries().build()
     }
 
     private fun initView() {
@@ -70,15 +70,15 @@ class MovimentacaoActivity : AppCompatActivity() {
     }
 
     private fun initVariables() {
-        ativo = intent.getParcelableExtra("ativo")
+        operacao = intent.getParcelableExtra("operacao")
     }
 
     private fun initBinding() {
-        if (ativo != null) {
-            etNome.setText(ativo!!.nome)
-            etCodigo.setText(ativo!!.codigo)
-            etValorCota.setText(ativo!!.valorCota.toString())
-            etQuantidadeCotas.setText(ativo!!.quantidadeCotas.toString())
+        if (operacao != null) {
+            etNome.setText(operacao!!.nome)
+            etCodigo.setText(operacao!!.codigo)
+            etValorCota.setText(operacao!!.valorCota.toString())
+            etQuantidadeCotas.setText(operacao!!.quantidadeCotas.toString())
 
             // Exibe botão excluir
             btnExcluir.visibility = View.VISIBLE
@@ -86,16 +86,16 @@ class MovimentacaoActivity : AppCompatActivity() {
     }
 
     private fun save() {
-        if (ativo != null) {
-            ativo!!.nome = etNome.text.toString()
-            ativo!!.codigo = etCodigo.text.toString()
-            ativo!!.valorCota = etValorCota.text.toString().toFloat()
-            ativo!!.quantidadeCotas = etQuantidadeCotas.text.toString().toInt()
+        if (operacao != null) {
+            operacao!!.nome = etNome.text.toString()
+            operacao!!.codigo = etCodigo.text.toString()
+            operacao!!.valorCota = etValorCota.text.toString().toFloat()
+            operacao!!.quantidadeCotas = etQuantidadeCotas.text.toString().toInt()
 
-            database?.ativoDao()?.updateAtivo(ativo!!)
+            database?.operacaoDao()?.updateOperacao(operacao!!)
         } else {
-            database?.ativoDao()?.insertAtivo(
-                Ativo(
+            database?.operacaoDao()?.insertOperacao(
+                Operacao(
                     etNome.text.toString(),
                     etCodigo.text.toString(),
                     valorCota = etValorCota.text.toString().toFloat(),
@@ -107,7 +107,7 @@ class MovimentacaoActivity : AppCompatActivity() {
     }
 
     private fun remove() {
-        database?.ativoDao()?.deleteAtivo(ativo!!)
+        database?.operacaoDao()?.deleteOperacao(operacao!!)
         finish()
     }
 

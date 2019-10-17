@@ -2,9 +2,9 @@ package com.example.meufii.views.activity;
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.meufii.Interface.AtivoDao
+import com.example.meufii.Interface.OperacaoDao
 
-@Database(version = 1, entities = arrayOf(Ativo::class))
+@Database(version = 1, entities = arrayOf(Operacao::class))
 abstract class AppDataBase : RoomDatabase() {
-    abstract fun ativoDao(): AtivoDao
+    abstract fun operacaoDao(): OperacaoDao
 }

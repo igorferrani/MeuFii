@@ -39,13 +39,6 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
         holder.codigo.setText(ativos.get(position).getCodigo());
 
         holder.valorInvestido.setText(ativos.get(position).getValorInvestidoFormatado());
-        holder.valorRetornado.setText(ativos.get(position).getValorRetornadoFormatado());
-
-        if (ativos.get(position).getValorRetornado() >= 0) {
-            holder.valorRetornado.setTextColor(context.getResources().getColor(R.color.colorPositive));
-        } else {
-            holder.valorRetornado.setTextColor(context.getResources().getColor(R.color.colorNegative));
-        }
 
         holder.quantidadeCotas.setText(Integer.toString(ativos.get(position).getQuantidadeCotas()));
     }
