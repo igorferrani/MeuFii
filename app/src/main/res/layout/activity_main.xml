@@ -32,7 +32,7 @@
 
             <TextView
                 android:id="@+id/valor_total_investido"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ffffff"
                 android:textSize="28sp"
@@ -44,7 +44,7 @@
 
             <TextView
                 android:id="@+id/valor_total_rendimentos"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorNeutral"
                 android:textSize="16sp"

@@ -60,7 +60,7 @@
 
 		<TextView
 				android:id="@+id/valor_investido"
-				android:layout_width="0dp" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
 				android:gravity="right"
 				android:text="R$3.000,00"
 				android:textSize="22sp"
