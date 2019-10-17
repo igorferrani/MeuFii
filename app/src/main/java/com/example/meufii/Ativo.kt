@@ -47,7 +47,11 @@ data class Ativo(var nome: String,
         }
     }
 
-    fun getValorInvestido(): String {
-        return valorCota.toString()
+    fun getValorInvestidoFormatado(): String {
+        return UtilFormat.formatDecimal(valorCota * quantidadeCotas)
+    }
+
+    fun getValorCotaFormatado(): String {
+        return UtilFormat.formatDecimal(valorCota)
     }
 }

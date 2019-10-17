@@ -31,9 +31,8 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
         holder.nome.setText(ativos.get(position).getNome());
         holder.codigo.setText(ativos.get(position).getCodigo());
 
-        Float valorInvestido = ativos.get(position).getValorCota() * ativos.get(position).getQuantidadeCotas();
-
-        holder.valorInvestido.setText(Float.toString(valorInvestido));
+        holder.valorInvestido.setText(ativos.get(position).getValorInvestidoFormatado());
+        holder.valorCota.setText(ativos.get(position).getValorCotaFormatado());
         holder.quantidadeCotas.setText(Integer.toString(ativos.get(position).getQuantidadeCotas()));
     }
 
@@ -52,6 +51,7 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
         private TextView nome;
         private TextView codigo;
         private TextView valorInvestido;
+        private TextView valorCota;
         private TextView quantidadeCotas;
 
         private AtivoViewHolder(@NonNull View itemView) {
@@ -60,6 +60,7 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
             nome = itemView.findViewById(R.id.nome);
             codigo = itemView.findViewById(R.id.codigo);
             valorInvestido = itemView.findViewById(R.id.valor_investido);
+            valorCota = itemView.findViewById(R.id.valor_cota);
             quantidadeCotas = itemView.findViewById(R.id.quantidade_cotas);
 
             itemView.setOnClickListener(this);

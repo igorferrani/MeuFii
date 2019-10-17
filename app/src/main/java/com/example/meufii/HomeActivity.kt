@@ -4,11 +4,12 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import kotlinx.android.synthetic.main.activity_main.*
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
@@ -29,6 +30,9 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(R.string.title_home)
+
         initView()
         initDb()
         setup()
@@ -41,11 +45,11 @@ class HomeActivity : AppCompatActivity() {
         adapterAtivo.setOnItemClickAtivo {
             openMovimentacao(ativos!!.get(it))
         }
-        rv_ativos.adapter = adapterAtivo
-        val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val layout = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_ativos.setLayoutManager(layout)
+        rv_ativos.adapter = adapterAtivo
 
-        var buttonCompra = findViewById<Button>(R.id.btn_registrar_compra)
+        var buttonCompra = findViewById<FloatingActionButton>(R.id.btn_registrar_compra)
         buttonCompra.setOnClickListener {
             openMovimentacao()
         }

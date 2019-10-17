@@ -6,18 +6,21 @@ import android.text.InputFilter
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toolbar
 import androidx.room.Room
+import com.google.android.material.textfield.TextInputEditText
 
 
 class MovimentacaoActivity : AppCompatActivity() {
 
     private var ativo: Ativo? = null
 
-    private lateinit var etNome: EditText
-    private lateinit var etCodigo: EditText
-    private lateinit var etDate: EditText
-    private lateinit var etValorCota: EditText
-    private lateinit var etQuantidadeCotas: EditText
+    private lateinit var etNome: TextInputEditText
+    private lateinit var etCodigo: TextInputEditText
+    private lateinit var etDate: TextInputEditText
+    private lateinit var etValorCota: TextInputEditText
+    private lateinit var etQuantidadeCotas: TextInputEditText
     private lateinit var btnRegistrar: Button
     private lateinit var btnExcluir: Button
 
@@ -29,8 +32,13 @@ class MovimentacaoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movimentacao)
 
-        getSupportActionBar()!!.setDisplayHomeAsUpEnabled(true)
-        getSupportActionBar()!!.setDisplayShowHomeEnabled(true)
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+        toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(R.string.title_home)
+
+        setSupportActionBar(toolbar)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         initView()
         initVariables()
