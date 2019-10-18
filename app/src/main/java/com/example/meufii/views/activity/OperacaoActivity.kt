@@ -6,12 +6,12 @@ import android.text.InputFilter
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.room.Room
 import com.example.meufii.R
+import com.example.meufii.model.Operacao
 import com.google.android.material.textfield.TextInputEditText
 
 
-class MovimentacaoActivity : AppCompatActivity() {
+class OperacaoActivity : AppCompatActivity() {
 
     private var operacao: Operacao? = null
 
@@ -33,7 +33,7 @@ class MovimentacaoActivity : AppCompatActivity() {
 
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
         toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(
-            R.string.title_home
+            R.string.title_operacao
         )
 
         setSupportActionBar(toolbar)
@@ -48,8 +48,7 @@ class MovimentacaoActivity : AppCompatActivity() {
     }
 
     private fun initDb() {
-        //Room
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii4-db").allowMainThreadQueries().build()
+        database = LocalDatabase.getInstance(this)
     }
 
     private fun initView() {
@@ -89,7 +88,7 @@ class MovimentacaoActivity : AppCompatActivity() {
         if (operacao != null) {
             operacao!!.nome = etNome.text.toString()
             operacao!!.codigo = etCodigo.text.toString()
-            operacao!!.valorCota = etValorCota.text.toString().toFloat()
+            operacao!!.valorCota = etValorCota.text.toString().toDouble()
             operacao!!.quantidadeCotas = etQuantidadeCotas.text.toString().toInt()
 
             database?.operacaoDao()?.updateOperacao(operacao!!)
@@ -98,7 +97,7 @@ class MovimentacaoActivity : AppCompatActivity() {
                 Operacao(
                     etNome.text.toString(),
                     etCodigo.text.toString(),
-                    valorCota = etValorCota.text.toString().toFloat(),
+                    valorCota = etValorCota.text.toString().toDouble(),
                     quantidadeCotas = etQuantidadeCotas.text.toString().toInt()
                 )
             )

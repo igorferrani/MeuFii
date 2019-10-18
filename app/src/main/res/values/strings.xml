@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MeuFii</string>
     <string name="title_home">Minha carteira</string>
+    <string name="title_operacao">Operação</string>
 </resources>

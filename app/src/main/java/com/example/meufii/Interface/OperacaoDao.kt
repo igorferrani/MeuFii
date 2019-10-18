@@ -6,8 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.meufii.views.activity.Ativo
-import com.example.meufii.views.activity.Operacao
+import com.example.meufii.model.Operacao
 
 @Dao
 interface OperacaoDao {

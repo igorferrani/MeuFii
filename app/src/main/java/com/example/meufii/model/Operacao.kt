@@ -1,26 +1,25 @@
-package com.example.meufii.views.activity
+package com.example.meufii.model
 
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import com.example.meufii.views.activity.UtilFormat
 import java.util.*
 
 @Entity(tableName = "operacao")
 data class Operacao(var nome: String,
                     var codigo: String,
                     @PrimaryKey val uuid: String = UUID.randomUUID().toString(),
-                    var valorCota: Float = 0f,
-                    var quantidadeCotas: Int = 0,
-                    val valorRetornado: Float = 0f) : Parcelable {
+                    var valorCota: Double = 0.0,
+                    var quantidadeCotas: Int = 0) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
-        parcel.readFloat(),
-        parcel.readInt(),
-        parcel.readFloat()
+        parcel.readDouble(),
+        parcel.readInt()
     )
 
     @Ignore
@@ -28,9 +27,8 @@ data class Operacao(var nome: String,
         parcel.writeString(nome)
         parcel.writeString(codigo)
         parcel.writeString(uuid)
-        parcel.writeFloat(valorCota)
+        parcel.writeDouble(valorCota)
         parcel.writeInt(quantidadeCotas)
-        parcel.writeFloat(valorRetornado)
     }
 
     @Ignore
@@ -50,11 +48,7 @@ data class Operacao(var nome: String,
         }
     }
 
-    fun getValorInvestidoFormatado(): String {
-        return UtilFormat.formatDecimal(valorCota * quantidadeCotas)
-    }
-
-    fun getValorRetornadoFormatado(): String {
-        return UtilFormat.formatDecimal(valorRetornado)
+    fun valorTotalOperacao() : Double {
+        return quantidadeCotas * valorCota
     }
 }

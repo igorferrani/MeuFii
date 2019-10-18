@@ -1,29 +1,26 @@
-package com.example.meufii.views.activity
+package com.example.meufii.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import androidx.room.Entity
 import androidx.room.Ignore
-import androidx.room.PrimaryKey
-import java.util.*
+import com.example.meufii.views.activity.UtilFormat
 
 data class Ativo(var nome: String,
                  var codigo: String,
-                 var valorTotal: Float = 0f,
-                 var quantidadeCotas: Int = 0) : Parcelable {
-    constructor(parcel: Parcel) : this(
+                 var operacoes: ArrayList<Operacao> = ArrayList()) : Parcelable {
+    constructor(parcel: Parcel) : this (
         parcel.readString().toString(),
         parcel.readString().toString(),
-        parcel.readFloat(),
-        parcel.readInt()
+        arrayListOf<Operacao>().apply {
+            parcel.readList(this as List<*>, Operacao::class.java.classLoader)
+        }
     )
 
     @Ignore
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nome)
         parcel.writeString(codigo)
-        parcel.writeFloat(valorTotal)
-        parcel.writeInt(quantidadeCotas)
+        parcel.writeList(operacoes as List<*>?)
     }
 
     @Ignore
@@ -43,7 +40,23 @@ data class Ativo(var nome: String,
         }
     }
 
+    fun getValorTotal(): Double {
+        var aux = 0.0
+        for (operacao in operacoes) {
+            aux += operacao.valorCota * operacao.quantidadeCotas
+        }
+        return aux
+    }
+
+    fun getQuantidadeCotas(): Int {
+        var aux = 0
+        for (operacao in operacoes) {
+            aux += operacao.quantidadeCotas
+        }
+        return aux
+    }
+
     fun getValorInvestidoFormatado(): String {
-        return UtilFormat.formatDecimal(valorTotal)
+        return UtilFormat.formatDecimal(getValorTotal())
     }
 }

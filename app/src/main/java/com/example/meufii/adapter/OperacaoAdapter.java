@@ -6,63 +6,58 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.meufii.model.Ativo;
 import com.example.meufii.Interface.ItemClickListener;
 import com.example.meufii.R;
+import com.example.meufii.model.Operacao;
+import com.example.meufii.views.activity.UtilFormat;
 
 import java.util.List;
 
-public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHolder>  {
+public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.AtivoViewHolder>  {
 
-    private List<Ativo> ativos;
+    private List<Operacao> itens;
     private ItemClickListener itemClickListener;
 
-    public AtivoAdapter(List<Ativo> ativos) {
-        this.ativos = ativos;
+    public OperacaoAdapter(List<Operacao> itens) {
+        this.itens = itens;
     }
 
     @NonNull
     @Override
     public AtivoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ativo, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_operacao, parent, false);
         AtivoViewHolder holder = new AtivoViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull AtivoViewHolder holder, int position) {
-        holder.nome.setText(ativos.get(position).getNome());
-        holder.codigo.setText(ativos.get(position).getCodigo());
-        holder.valorInvestido.setText(ativos.get(position).getValorInvestidoFormatado());
-        holder.quantidadeCotas.setText(Integer.toString(ativos.get(position).getQuantidadeCotas()));
+        holder.valorTotal.setText(UtilFormat.formatDecimal(itens.get(position).valorTotalOperacao()));
+        //holder.dataOperacao.setText(itens.get(position).getCodigo());
+        holder.quantidadeCotas.setText(Integer.toString(itens.get(position).getQuantidadeCotas()) + " cotas");
     }
 
     @Override
     public int getItemCount() {
-        return ativos == null ? 0 : ativos.size();
+        return itens == null ? 0 : itens.size();
     }
 
-    public void setAtivos(List<Ativo> ativos) {
-        this.ativos = ativos;
+    public void setItens(List<Operacao> itens) {
+        this.itens = itens;
         notifyDataSetChanged();
     }
 
     public class AtivoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView nome;
-        private TextView codigo;
-        private TextView valorInvestido;
-        private TextView valorRetornado;
+        private TextView valorTotal;
+        private TextView dataOperacao;
         private TextView quantidadeCotas;
 
         private AtivoViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            nome = itemView.findViewById(R.id.nome);
-            codigo = itemView.findViewById(R.id.codigo);
-            valorInvestido = itemView.findViewById(R.id.valor_investido);
-            valorRetornado = itemView.findViewById(R.id.valor_retornado);
+            valorTotal = itemView.findViewById(R.id.valor_total);
+            dataOperacao = itemView.findViewById(R.id.data_operacao);
             quantidadeCotas = itemView.findViewById(R.id.quantidade_cotas);
 
             itemView.setOnClickListener(this);

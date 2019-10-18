@@ -8,9 +8,10 @@ import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import com.example.meufii.R
 import com.example.meufii.adapter.AtivoAdapter
+import com.example.meufii.model.Ativo
+import com.example.meufii.model.Operacao
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -23,8 +24,8 @@ class HomeActivity : AppCompatActivity() {
     private var ativos: List<Ativo>? = null
     private lateinit var adapterAtivo: AtivoAdapter
 
-
     companion object {
+        var RC_HOME_ACTIVITY = 1
         var database: AppDataBase? = null
     }
 
@@ -45,9 +46,9 @@ class HomeActivity : AppCompatActivity() {
     @SuppressLint("WrongConstant")
     private fun initView() {
         val rv_ativos = findViewById<RecyclerView>(R.id.rv_ativos)
-        adapterAtivo = AtivoAdapter(this, null)
-        adapterAtivo.setOnItemClickAtivo {
-            openMovimentacao(ativos!!.get(it))
+        adapterAtivo = AtivoAdapter(null)
+        adapterAtivo.setOnItemClick {
+            openAtivo(ativos!!.get(it))
         }
         val layout = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_ativos.setLayoutManager(layout)
@@ -55,30 +56,33 @@ class HomeActivity : AppCompatActivity() {
 
         var buttonCompra = findViewById<FloatingActionButton>(R.id.btn_registrar_compra)
         buttonCompra.setOnClickListener {
-            openMovimentacao()
+            openOperacao()
         }
     }
 
-    private fun getTotalInvestimento(): Float {
-        var aux: Float = 0f
+    private fun getTotalInvestimento(): Double {
+        var aux = 0.0
         for (ativo: Ativo in ativos!!) {
-            aux += ativo.valorTotal
+            aux += ativo.getValorTotal()
         }
         return aux
     }
 
-    private fun openMovimentacao(ativo: Ativo? = null) {
-        val intent = Intent(this, MovimentacaoActivity::class.java)
+    private fun openOperacao() {
+        val intent = Intent(this, OperacaoActivity::class.java)
+        startActivityForResult(intent, RC_HOME_ACTIVITY)
+    }
+
+    private fun openAtivo(ativo: Ativo? = null) {
+        val intent = Intent(this, AtivoActivity::class.java)
         if (ativo != null) {
             intent.putExtra("ativo", ativo)
         }
-        startActivityForResult(intent, 123)
+        startActivityForResult(intent, RC_HOME_ACTIVITY)
     }
 
     private fun initDb() {
-        database = Room.databaseBuilder(this, AppDataBase::class.java, "meufii4-db")
-            .allowMainThreadQueries()
-            .build()
+        database = LocalDatabase.getInstance(this)
     }
 
     private fun buscaOperacoes(): List<Ativo> {
@@ -92,15 +96,13 @@ class HomeActivity : AppCompatActivity() {
             for (operacao in operacoes) {
                 val ativo = verificaSePossuiOperacaoEmAtivos(aux, operacao)
                 if (ativo != null) {
-                    ativo.quantidadeCotas += operacao.quantidadeCotas
-                    ativo.valorTotal += operacao.valorCota * operacao.quantidadeCotas
+                    ativo.operacoes.add(operacao)
                 } else {
                     aux.add(
                         Ativo(
                             operacao.nome,
                             operacao.codigo,
-                            operacao.valorCota * operacao.quantidadeCotas,
-                            operacao.quantidadeCotas
+                            operacoes = arrayListOf(operacao)
                         )
                     )
                 }
@@ -145,7 +147,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 123) {
+        if (requestCode == RC_HOME_ACTIVITY) {
             setup()
         }
     }
