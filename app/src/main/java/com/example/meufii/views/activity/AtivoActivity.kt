@@ -82,7 +82,7 @@ class AtivoActivity : AppCompatActivity() {
     private fun createAdapterOperacoes() {
         adapterOperacao = OperacaoAdapter(null)
         adapterOperacao.setOnItemClick {
-            openOperacao(ativo!!.operacoes!!.get(it))
+            openOperacao(ativo!!.operacoes[it])
         }
         val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvOperacoes.setLayoutManager(layout)

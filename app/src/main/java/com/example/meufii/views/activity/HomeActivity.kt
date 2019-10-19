@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meufii.R
@@ -13,16 +14,13 @@ import com.example.meufii.adapter.AtivoAdapter
 import com.example.meufii.model.Ativo
 import com.example.meufii.model.Operacao
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.jsoup.Jsoup
 
 class HomeActivity : AppCompatActivity() {
 
-    private val ativo = "XPCM11"
-    private val url = "https://fiis.com.br/$ativo/?aba=tabela"
     private var ativos: List<Ativo>? = null
     private lateinit var adapterAtivo: AtivoAdapter
+
+    private var viewModel = HomeViewModel()
 
     companion object {
         var RC_HOME_ACTIVITY = 1
@@ -38,6 +36,7 @@ class HomeActivity : AppCompatActivity() {
             R.string.title_home
         )
 
+        initObservable()
         initView()
         initDb()
         setup()
@@ -58,6 +57,15 @@ class HomeActivity : AppCompatActivity() {
         buttonCompra.setOnClickListener {
             openOperacao()
         }
+    }
+
+    private fun initObservable() {
+        viewModel.requestResumoLiveData.observe(this, Observer {
+            viewModel.processaDadosResumoFii(it)
+        })
+        viewModel.processaResumoLiveData.observe(this, Observer {
+            println(it)
+        })
     }
 
     private fun getTotalInvestimento(): Double {
@@ -121,6 +129,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setup() {
+        viewModel.buscaFiiAtivos()
         ativos = buscaOperacoes()
         adapterAtivo.setAtivos(ativos)
 
@@ -128,21 +137,6 @@ class HomeActivity : AppCompatActivity() {
         valorTotalInvestido.text = UtilFormat.formatDecimal(getTotalInvestimento())
 
         val valorTotalRendimentos = findViewById<TextView>(R.id.valor_total_rendimentos)
-    }
-
-    private fun buscaFiiAtivos() {
-        GlobalScope.launch {
-            val doc = Jsoup.connect(url).get()
-            val tabela = doc.getElementById("tabela")
-
-            val linhas = tabela.getElementsByTag("tr")
-
-            for (linha in linhas) {
-                for (coluna in linha.getElementsByTag("td")) {
-                    println(coluna.text())
-                }
-            }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
