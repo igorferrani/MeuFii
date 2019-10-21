@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import com.example.meufii.R
+import com.example.meufii.data.AppDataBase
+import com.example.meufii.data.LocalDatabase
 import com.example.meufii.model.Operacao
 import com.google.android.material.textfield.TextInputEditText
 

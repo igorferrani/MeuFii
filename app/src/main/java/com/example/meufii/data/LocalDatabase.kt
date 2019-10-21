@@ -1,4 +1,4 @@
-package com.example.meufii.views.activity
+package com.example.meufii.data
 
 import android.content.Context
 import androidx.room.Room
@@ -9,7 +9,9 @@ class LocalDatabase {
         var name = "meufii6-db"
 
         fun getInstance(context: Context): AppDataBase {
-            return Room.databaseBuilder(context, AppDataBase::class.java, name)
+            return Room.databaseBuilder(context, AppDataBase::class.java,
+                name
+            )
                 .allowMainThreadQueries()
                 .build()
         }

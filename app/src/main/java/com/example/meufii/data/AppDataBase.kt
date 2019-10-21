@@ -1,4 +1,4 @@
-package com.example.meufii.views.activity;
+package com.example.meufii.data;
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
