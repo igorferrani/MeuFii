@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.meufii.Interface.ItemClickListener;
+import com.example.meufii.Interface.ItemClickOperacaoListener;
 import com.example.meufii.R;
 import com.example.meufii.model.Operacao;
 import com.example.meufii.views.activity.UtilFormat;
@@ -16,7 +16,7 @@ import java.util.List;
 public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.AtivoViewHolder>  {
 
     private List<Operacao> itens;
-    private ItemClickListener itemClickListener;
+    private ItemClickOperacaoListener itemClickOperacaoListener;
 
     public OperacaoAdapter(List<Operacao> itens) {
         this.itens = itens;
@@ -65,13 +65,13 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.AtivoV
 
         @Override
         public void onClick(View view) {
-            if (itemClickListener != null) {
-                itemClickListener.onItemClick(getAdapterPosition());
+            if (itemClickOperacaoListener != null) {
+                itemClickOperacaoListener.onItemClickOperacao(itens.get(getAdapterPosition()));
             }
         }
     }
 
-    public void setOnItemClick(ItemClickListener itemClickListener){
-        this.itemClickListener = itemClickListener;
+    public void setOnItemClick(ItemClickOperacaoListener itemClickOperacaoListener){
+        this.itemClickOperacaoListener = itemClickOperacaoListener;
     }
 }

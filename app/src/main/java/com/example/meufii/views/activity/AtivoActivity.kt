@@ -18,6 +18,7 @@ import com.example.meufii.model.Operacao
 class AtivoActivity : AppCompatActivity() {
 
     private var ativo: Ativo? = null
+    private var codigoAtivo: String? = null
 
     private lateinit var etNome: TextView
     private lateinit var rvOperacoes: RecyclerView
@@ -44,11 +45,24 @@ class AtivoActivity : AppCompatActivity() {
         initView()
         initVariables()
         initDb()
+        setup()
         initBinding()
     }
 
     private fun initDb() {
         database = LocalDatabase.getInstance(this)
+    }
+
+    private fun setup() {
+        ativo = buscaAtivoPorId(codigoAtivo)
+    }
+
+    private fun buscaAtivoPorId(codigoAtivo: String?): Ativo {
+        if (codigoAtivo != null) {
+            val operacoes = database!!.operacaoDao().getAllOperacoes()
+            return Ativo.agrupaOperacoesEmAtivo(operacoes, codigoAtivo)
+        }
+        return Ativo()
     }
 
     private fun setTitleToolbar(title: String) {
@@ -67,7 +81,7 @@ class AtivoActivity : AppCompatActivity() {
     }
 
     private fun initVariables() {
-        ativo = intent.getParcelableExtra("ativo")
+        codigoAtivo = intent.getStringExtra("codigoAtivo")
     }
 
     private fun initBinding() {
@@ -82,7 +96,7 @@ class AtivoActivity : AppCompatActivity() {
     private fun createAdapterOperacoes() {
         adapterOperacao = OperacaoAdapter(null)
         adapterOperacao.setOnItemClick {
-            openOperacao(ativo!!.operacoes[it])
+            openOperacao(it)
         }
         val layout = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvOperacoes.setLayoutManager(layout)
@@ -105,7 +119,7 @@ class AtivoActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == HomeActivity.RC_HOME_ACTIVITY) {
-            // Buscar operações no banco e atualizar atributo "ativo"
+            setup()
             initBinding()
         }
     }

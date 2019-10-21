@@ -7,8 +7,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.meufii.Interface.ItemClickAtivoListener;
 import com.example.meufii.model.Ativo;
-import com.example.meufii.Interface.ItemClickListener;
+import com.example.meufii.Interface.ItemClickOperacaoListener;
 import com.example.meufii.R;
 
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHolder>  {
 
     private List<Ativo> ativos;
-    private ItemClickListener itemClickListener;
+    private ItemClickAtivoListener itemClickAtivoListener;
 
     public AtivoAdapter(List<Ativo> ativos) {
         this.ativos = ativos;
@@ -70,13 +71,13 @@ public class AtivoAdapter extends RecyclerView.Adapter<AtivoAdapter.AtivoViewHol
 
         @Override
         public void onClick(View view) {
-            if (itemClickListener != null) {
-                itemClickListener.onItemClick(getAdapterPosition());
+            if (itemClickAtivoListener != null) {
+                itemClickAtivoListener.onItemClickAtivo(ativos.get(getAdapterPosition()));
             }
         }
     }
 
-    public void setOnItemClick(ItemClickListener itemClickListener){
-        this.itemClickListener = itemClickListener;
+    public void setOnItemClick(ItemClickAtivoListener itemClickAtivoListener){
+        this.itemClickAtivoListener = itemClickAtivoListener;
     }
 }

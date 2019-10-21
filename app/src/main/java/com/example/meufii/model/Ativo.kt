@@ -5,8 +5,8 @@ import android.os.Parcelable
 import androidx.room.Ignore
 import com.example.meufii.views.activity.UtilFormat
 
-data class Ativo(var nome: String,
-                 var codigo: String,
+data class Ativo(var nome: String = "",
+                 var codigo: String = "",
                  var operacoes: ArrayList<Operacao> = ArrayList()) : Parcelable {
     constructor(parcel: Parcel) : this (
         parcel.readString().toString(),
@@ -37,6 +37,44 @@ data class Ativo(var nome: String,
         @Ignore
         override fun newArray(size: Int): Array<Ativo?> {
             return arrayOfNulls(size)
+        }
+
+        fun agrupaOperacoesEmListaDeAtivos(operacoes: List<Operacao>): List<Ativo> {
+            val aux = ArrayList<Ativo>()
+            for (operacao in operacoes) {
+                val ativo = verificaSePossuiOperacaoEmAtivos(aux, operacao)
+                if (ativo != null) {
+                    ativo.operacoes.add(operacao)
+                } else {
+                    aux.add(
+                        Ativo(
+                            operacao.nome,
+                            operacao.codigo,
+                            operacoes = arrayListOf(operacao)
+                        )
+                    )
+                }
+            }
+            return aux
+        }
+
+        fun agrupaOperacoesEmAtivo(operacoes: List<Operacao>, codigoAtivo: String): Ativo {
+            val ativo = Ativo()
+            for (operacao in operacoes) {
+                if (operacao.codigo == codigoAtivo) {
+                    ativo.operacoes.add(operacao)
+                }
+            }
+            return ativo
+        }
+
+        private fun verificaSePossuiOperacaoEmAtivos(ativos: List<Ativo>, operacao: Operacao): Ativo? {
+            for (ativo in ativos) {
+                if (ativo.codigo.equals(operacao.codigo)) {
+                    return ativo
+                }
+            }
+            return null
         }
     }
 
