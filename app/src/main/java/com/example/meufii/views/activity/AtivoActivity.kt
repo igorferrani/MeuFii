@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meufii.R
 import com.example.meufii.adapter.OperacaoAdapter
+import com.example.meufii.data.AppDataBase
+import com.example.meufii.data.LocalDatabase
 import com.example.meufii.model.Ativo
 import com.example.meufii.model.Operacao
 

@@ -3,6 +3,7 @@ package com.example.meufii.views.activity
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.meufii.data.LocalDatabase
 import com.example.meufii.model.Ativo
 import com.example.meufii.model.Operacao
 import kotlinx.coroutines.GlobalScope
