@@ -6,7 +6,7 @@ import androidx.room.Room
 class LocalDatabase {
 
     companion object {
-        var name = "meufii6-db"
+        var name = "meufii7-db"
 
         fun getInstance(context: Context): AppDataBase {
             return Room.databaseBuilder(context, AppDataBase::class.java,

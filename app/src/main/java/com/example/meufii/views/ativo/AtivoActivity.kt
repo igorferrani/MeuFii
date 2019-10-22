@@ -1,4 +1,4 @@
-package com.example.meufii.views.activity
+package com.example.meufii.views.ativo
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -15,6 +15,8 @@ import com.example.meufii.data.AppDataBase
 import com.example.meufii.data.LocalDatabase
 import com.example.meufii.model.Ativo
 import com.example.meufii.model.Operacao
+import com.example.meufii.views.home.HomeActivity
+import com.example.meufii.views.operacao.OperacaoActivity
 
 
 class AtivoActivity : AppCompatActivity() {
@@ -76,7 +78,8 @@ class AtivoActivity : AppCompatActivity() {
         rvOperacoes = findViewById(R.id.rv_operacoes)
         btnAdicionarOperacao = findViewById(R.id.btn_adicionar_operacao)
         btnAdicionarOperacao.setOnClickListener {
-            openOperacao(null)
+            val ativoAux = ativo!!.operacoes[0]
+            openOperacao(Operacao(codigo = ativoAux.codigo, nome = ativoAux.nome))
         }
 
         createAdapterOperacoes()
@@ -110,7 +113,9 @@ class AtivoActivity : AppCompatActivity() {
         if (operacao != null) {
             intent.putExtra("operacao", operacao)
         }
-        startActivityForResult(intent, HomeActivity.RC_HOME_ACTIVITY)
+        startActivityForResult(intent,
+            HomeActivity.RC_HOME_ACTIVITY
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {

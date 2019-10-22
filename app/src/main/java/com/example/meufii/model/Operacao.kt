@@ -5,16 +5,17 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.example.meufii.views.activity.UtilFormat
 import java.util.*
 
 @Entity(tableName = "operacao")
-data class Operacao(var nome: String,
-                    var codigo: String,
+data class Operacao(var nome: String = "",
+                    var codigo: String = "",
+                    var data: String = "",
                     @PrimaryKey val uuid: String = UUID.randomUUID().toString(),
                     var valorCota: Double = 0.0,
                     var quantidadeCotas: Int = 0) : Parcelable {
     constructor(parcel: Parcel) : this(
+        parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
         parcel.readString().toString(),
@@ -26,6 +27,7 @@ data class Operacao(var nome: String,
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(nome)
         parcel.writeString(codigo)
+        parcel.writeString(data)
         parcel.writeString(uuid)
         parcel.writeDouble(valorCota)
         parcel.writeInt(quantidadeCotas)

@@ -1,4 +1,4 @@
-package com.example.meufii.views.activity
+package com.example.meufii.views.home
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.meufii.R
 import com.example.meufii.adapter.AtivoAdapter
 import com.example.meufii.model.Ativo
+import com.example.meufii.util.UtilFormat
+import com.example.meufii.views.ativo.AtivoActivity
+import com.example.meufii.views.operacao.OperacaoActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class HomeActivity : AppCompatActivity() {
@@ -27,7 +30,7 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         toolbar.findViewById<TextView>(R.id.toolbar_title).text = resources.getString(

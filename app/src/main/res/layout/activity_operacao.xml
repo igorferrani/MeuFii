@@ -5,7 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.activity.HomeActivity">
+        tools:context=".views.home.HomeActivity">
 
     <include
             android:id="@+id/toolbar"
@@ -21,47 +21,57 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_nome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/nome"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_codigo_fundo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="Nome do fundo" />
+                    android:layout_margin="8dp"
+                    android:background="#ccc"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <TextView
+                        android:id="@+id/tv_codigo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="XPCM11"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:padding="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:visibility="gone"/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_codigo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/til_nome"
-                app:layout_constraintStart_toStartOf="@+id/til_nome"
-                app:layout_constraintTop_toBottomOf="@+id/til_nome">
+                <TextView
+                        android:id="@+id/tv_nome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="XP CORPORATE MACAÉ"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_codigo"
+                        android:padding="8dp"
+                        android:visibility="gone"/>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/codigo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="Código do fundo na bolsa" />
+                <TextView
+                        android:id="@+id/tv_placeholder_add_fundo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="32dp"
+                        android:text="SELECIONAR FUNDO"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_nome" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_data"
@@ -70,10 +80,9 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@+id/til_codigo"
-                app:layout_constraintStart_toStartOf="@+id/til_codigo"
-                app:layout_constraintTop_toBottomOf="@+id/til_codigo">
+                app:layout_constraintEnd_toEndOf="@+id/cl_codigo_fundo"
+                app:layout_constraintStart_toStartOf="@+id/cl_codigo_fundo"
+                app:layout_constraintTop_toBottomOf="@+id/cl_codigo_fundo">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/data"
@@ -129,27 +138,29 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/btn_excluir"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Excluir registro"
-        android:textColor="#ffffff"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_registrar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_registrar"
-        tools:visibility="visible" />
+            android:id="@+id/btn_excluir"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Excluir registro"
+            android:textColor="#ffffff"
+            android:height="@dimen/altura_botao"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_registrar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_registrar"
+            tools:visibility="visible" />
 
     <Button
-        android:id="@+id/btn_registrar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:text="Salvar alterações"
-        android:textColor="#ffffff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btn_excluir" />
+            android:id="@+id/btn_registrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:text="Salvar alterações"
+            android:textColor="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_excluir"
+            android:height="@dimen/altura_botao"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,4 +2,5 @@
     <string name="app_name">MeuFii</string>
     <string name="title_home">Minha carteira</string>
     <string name="title_operacao">Operação</string>
+    <string name="title_busca_ativo">Selecione o itens</string>
 </resources>

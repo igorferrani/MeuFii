@@ -3,7 +3,7 @@ package com.example.meufii.model
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Ignore
-import com.example.meufii.views.activity.UtilFormat
+import com.example.meufii.util.UtilFormat
 
 data class Ativo(var nome: String = "",
                  var codigo: String = "",

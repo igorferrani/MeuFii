@@ -1,4 +1,4 @@
-package com.example.meufii.views.activity
+package com.example.meufii.views.home
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData

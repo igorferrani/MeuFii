@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.meufii.Interface.ItemClickOperacaoListener;
 import com.example.meufii.R;
 import com.example.meufii.model.Operacao;
-import com.example.meufii.views.activity.UtilFormat;
+import com.example.meufii.util.UtilFormat;
 
 import java.util.List;
 
@@ -33,8 +33,8 @@ public class OperacaoAdapter extends RecyclerView.Adapter<OperacaoAdapter.AtivoV
     @Override
     public void onBindViewHolder(@NonNull AtivoViewHolder holder, int position) {
         holder.valorTotal.setText(UtilFormat.formatDecimal(itens.get(position).valorTotalOperacao()));
-        //holder.dataOperacao.setText(itens.get(position).getCodigo());
-        holder.quantidadeCotas.setText(Integer.toString(itens.get(position).getQuantidadeCotas()) + " cotas");
+        holder.dataOperacao.setText(itens.get(position).getData());
+        holder.quantidadeCotas.setText(itens.get(position).getQuantidadeCotas() + " cotas");
     }
 
     @Override

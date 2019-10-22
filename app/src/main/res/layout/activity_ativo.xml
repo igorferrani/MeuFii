@@ -40,8 +40,10 @@ android:background="@color/colorPrimary">
 
         <Button
                 android:id="@+id/btn_adicionar_operacao"
-                android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:background="@drawable/shape_primary_border_operacoes" tools:layout_editor_absoluteY="528dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_primary_border_operacoes"
+                tools:layout_editor_absoluteY="528dp"
                 tools:layout_editor_absoluteX="0dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
