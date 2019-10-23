@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.meufii.R
 import com.example.meufii.adapter.AtivoAdapter
+import com.example.meufii.data.LocalDatabase
 import com.example.meufii.model.Ativo
 import com.example.meufii.util.UtilFormat
 import com.example.meufii.views.ativo.AtivoActivity
@@ -22,7 +23,7 @@ class HomeActivity : AppCompatActivity() {
     private var ativos: List<Ativo>? = null
     private lateinit var adapterAtivo: AtivoAdapter
 
-    private var viewModel = HomeViewModel(this)
+    private lateinit var viewModel: HomeViewModel
 
     companion object {
         var RC_HOME_ACTIVITY = 1
@@ -37,6 +38,8 @@ class HomeActivity : AppCompatActivity() {
             R.string.title_home
         )
 
+        viewModel = HomeViewModel(LocalDatabase.getInstance(this))
+
         initObservable()
         initView()
         setup()
@@ -44,16 +47,16 @@ class HomeActivity : AppCompatActivity() {
 
     @SuppressLint("WrongConstant")
     private fun initView() {
-        val rv_ativos = findViewById<RecyclerView>(R.id.rv_ativos)
+        val rvAtivos = findViewById<RecyclerView>(R.id.rv_ativos)
         adapterAtivo = AtivoAdapter(null)
         adapterAtivo.setOnItemClick {
             openAtivo(it)
         }
         val layout = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rv_ativos.setLayoutManager(layout)
-        rv_ativos.adapter = adapterAtivo
+        rvAtivos.layoutManager = layout
+        rvAtivos.adapter = adapterAtivo
 
-        var buttonCompra = findViewById<FloatingActionButton>(R.id.btn_registrar_compra)
+        val buttonCompra = findViewById<FloatingActionButton>(R.id.btn_registrar_compra)
         buttonCompra.setOnClickListener {
             openOperacao()
         }
@@ -85,8 +88,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setup() {
-        viewModel.buscaFiiAtivos()
-        viewModel.buscaOperacoes()
+        //viewModel.buscaFiiAtivos()
 
         val valorTotalInvestido = findViewById<TextView>(R.id.valor_total_investido)
         valorTotalInvestido.text = UtilFormat.formatDecimal(viewModel.getTotalInvestimento(ativos))

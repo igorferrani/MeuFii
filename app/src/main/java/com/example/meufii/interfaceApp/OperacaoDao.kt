@@ -1,4 +1,4 @@
-package com.example.meufii.Interface
+package com.example.meufii.interfaceApp
 
 import androidx.room.Dao
 import androidx.room.Delete

@@ -1,6 +1,5 @@
-package com.example.meufii.Interface;
+package com.example.meufii.interfaceApp;
 
-import com.example.meufii.model.Ativo;
 import com.example.meufii.model.Operacao;
 
 public interface ItemClickOperacaoListener {

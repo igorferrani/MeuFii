@@ -1,9 +1,8 @@
 package com.example.meufii.views.home
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.meufii.data.LocalDatabase
+import com.example.meufii.data.AppDataBase
 import com.example.meufii.model.Ativo
 import com.example.meufii.model.Operacao
 import kotlinx.coroutines.GlobalScope
@@ -11,24 +10,20 @@ import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
-class HomeViewModel(context: Context) : ViewModel() {
+class HomeViewModel(database: AppDataBase) : ViewModel() {
 
     val requestResumoLiveData = MutableLiveData<Document>()
     val processaResumoLiveData = MutableLiveData<ArrayList<String>>()
-    val requestAtivosLocalLiveData = MutableLiveData<List<Operacao>>()
+    var requestAtivosLocalLiveData = MutableLiveData<List<Operacao>>()
+
+    init {
+        requestAtivosLocalLiveData.value = database.operacaoDao().getAllOperacoes()
+    }
 
     companion object {
         private const val ativo = "XPCM11"
         private const val url = "https://fiis.com.br/$ativo/?aba=tabela"
         private const val urlResumo = "https://fiis.com.br/resumo/"
-    }
-
-    private val database by lazy {
-        LocalDatabase.getInstance(context)
-    }
-
-    fun buscaOperacoes() {
-        requestAtivosLocalLiveData.value = database.operacaoDao().getAllOperacoes()
     }
 
     fun buscaFiiAtivos() {

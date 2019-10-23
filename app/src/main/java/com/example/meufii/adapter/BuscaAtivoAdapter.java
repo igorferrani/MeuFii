@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.meufii.Interface.ItemClickAtivoListener;
+import com.example.meufii.interfaceApp.ItemClickAtivoListener;
 import com.example.meufii.R;
 import com.example.meufii.model.Ativo;
 

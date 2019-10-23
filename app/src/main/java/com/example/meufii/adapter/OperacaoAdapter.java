@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.meufii.Interface.ItemClickOperacaoListener;
+import com.example.meufii.interfaceApp.ItemClickOperacaoListener;
 import com.example.meufii.R;
 import com.example.meufii.model.Operacao;
 import com.example.meufii.util.UtilFormat;
