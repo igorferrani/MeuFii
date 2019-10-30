@@ -68,6 +68,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cl_resumo"
             tools:itemCount="4"
+            android:orientation="horizontal"
+            app:layoutManager="LinearLayoutManager"
             tools:listitem="@layout/item_ativo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
