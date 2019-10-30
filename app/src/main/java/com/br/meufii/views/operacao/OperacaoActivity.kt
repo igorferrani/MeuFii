@@ -80,8 +80,10 @@ class OperacaoActivity : AppCompatActivity() {
         tvPlaceholder = findViewById(R.id.tv_placeholder_add_fundo)
         clCodigoFundo = findViewById(R.id.cl_codigo_fundo)
         clCodigoFundo.setOnClickListener {
-            val intent = Intent(this, BuscaAtivoActivity::class.java)
-            startActivityForResult(intent, RC_BUSCA_ACTIVITY)
+            if (uuidAtivo == null) {
+                val intent = Intent(this, BuscaAtivoActivity::class.java)
+                startActivityForResult(intent, RC_BUSCA_ACTIVITY)
+            }
         }
 
         etDate = findViewById(R.id.data)
@@ -169,10 +171,6 @@ class OperacaoActivity : AppCompatActivity() {
     private fun remove() {
         database?.operacaoDao()?.deleteOperacao(operacao!!)
         finish()
-    }
-
-    private fun setValorBuscaAtivo(ativo: Ativo?) {
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

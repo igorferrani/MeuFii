@@ -12,6 +12,8 @@ import com.br.meufii.model.Operacao
 interface OperacaoDao {
     @Query("SELECT * FROM operacao WHERE uuidAtivo = :uuidAtivo") fun getAllOperacoes(uuidAtivo: String) : List<Operacao>
 
+    @Query("SELECT * FROM operacao") fun getAllUltimasOperacoes() : List<Operacao>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE) fun insertOperacao(vararg operacao: Operacao)
 
     @Update fun updateOperacao(operacao: Operacao)

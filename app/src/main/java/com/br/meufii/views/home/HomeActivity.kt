@@ -11,23 +11,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.br.meufii.R
 import com.br.meufii.adapter.AtivoAdapter
+import com.br.meufii.adapter.UltimasOperacoesAdapter
 import com.br.meufii.data.LocalDatabase
-import com.br.meufii.model.Ativo
 import com.br.meufii.model.CardResumoAtivo
+import com.br.meufii.model.HomeResumoAtivo
+import com.br.meufii.model.Operacao
 import com.br.meufii.util.UtilFormat
 import com.br.meufii.views.ativo.AtivoActivity
 import com.br.meufii.views.operacao.OperacaoActivity
-import com.github.salomonbrys.kotson.fromJson
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.gson.Gson
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var buttonCompra: FloatingActionButton
     private lateinit var rvAtivos: RecyclerView
+    private lateinit var rvUltimasOperacoes: RecyclerView
     private lateinit var adapterAtivo: AtivoAdapter
+    private lateinit var adapterUltimasOperacoes: UltimasOperacoesAdapter
     private lateinit var tvValorTotalInvestido: TextView
     private lateinit var valorTotalRendimentos: TextView
+    private lateinit var homeResumoAtivo: HomeResumoAtivo
 
     private lateinit var viewModel: HomeViewModel
 
@@ -52,10 +55,20 @@ class HomeActivity : AppCompatActivity() {
     @SuppressLint("WrongConstant")
     private fun initView() {
         rvAtivos = findViewById(R.id.rv_ativos)
+        rvUltimasOperacoes = findViewById(R.id.rv_ultimas_operacoes)
         tvValorTotalInvestido = findViewById(R.id.valor_total_investido)
         valorTotalRendimentos = findViewById(R.id.valor_total_rendimentos)
         buttonCompra = findViewById(R.id.btn_registrar_compra)
 
+        configuraAdapterListaAtivos()
+        configuraAdapterListaUltimasOperacoes()
+
+        buttonCompra.setOnClickListener {
+            openOperacao()
+        }
+    }
+
+    private fun configuraAdapterListaAtivos() {
         adapterAtivo = AtivoAdapter(null)
         adapterAtivo.setOnItemClick {
             openAtivo(it)
@@ -63,10 +76,16 @@ class HomeActivity : AppCompatActivity() {
 
         rvAtivos.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvAtivos.adapter = adapterAtivo
+    }
 
-        buttonCompra.setOnClickListener {
-            openOperacao()
+    private fun configuraAdapterListaUltimasOperacoes() {
+        adapterUltimasOperacoes = UltimasOperacoesAdapter(null)
+        adapterUltimasOperacoes.setOnItemClick {
+            openOperacao(it)
         }
+
+        rvUltimasOperacoes.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvUltimasOperacoes.adapter = adapterUltimasOperacoes
     }
 
     private fun setup() {
@@ -82,7 +101,9 @@ class HomeActivity : AppCompatActivity() {
 
         //viewModel.database.operacaoDao().insertOperacao(Operacao(uuidAtivo = "80ada24a-78e1-45f2-9861-2cd871ae6131", valorCota = 95.0, quantidadeCotas = 3))
 
+        viewModel.buscaResumoAtivosLocal()
         viewModel.buscaAtivosLocal()
+        viewModel.buscaUltimasOperacoesLocal()
     }
 
     private fun initObservable() {
@@ -95,7 +116,14 @@ class HomeActivity : AppCompatActivity() {
             println(it)
         })
         viewModel.requestAtivosLocalLiveData.observe(this, Observer {
-            atualizaViewComAtivos(it)
+            setListAtivosAdapter(it)
+        })
+        viewModel.requestUltimasOperacoesLocalLiveData.observe(this, Observer {
+            setListUltimasOperacoesAdapter(it)
+        })
+        viewModel.requestResumoAtivosLocalLiveData.observe(this, Observer {
+            homeResumoAtivo = it
+            setResumoView()
         })
     }
 
@@ -112,16 +140,25 @@ class HomeActivity : AppCompatActivity() {
         startActivityForResult(intent, RC_HOME_ACTIVITY)
     }
 
-    private fun setListAdapter(ativos: List<CardResumoAtivo>?) {
+    private fun openOperacao(operacao: Operacao? = null) {
+        val intent = Intent(this, OperacaoActivity::class.java)
+        if (operacao != null) {
+            intent.putExtra("operacao", operacao)
+            intent.putExtra("uuidAtivo", operacao.uuidAtivo)
+        }
+        startActivityForResult(intent, RC_HOME_ACTIVITY)
+    }
+
+    private fun setListAtivosAdapter(ativos: List<CardResumoAtivo>?) {
         adapterAtivo.setItens(ativos)
     }
 
-    private fun atualizaViewComAtivos(ativos: List<CardResumoAtivo>?) {
-        setListAdapter(ativos)
+    private fun setListUltimasOperacoesAdapter(ativos: List<Operacao>?) {
+        adapterUltimasOperacoes.setItens(ativos)
     }
 
     private fun setResumoView() {
-        val valorTotalInvestido = UtilFormat.formatDecimal(0.0)
+        val valorTotalInvestido = UtilFormat.formatDecimal(homeResumoAtivo.valorInvestido)
         tvValorTotalInvestido.text = valorTotalInvestido
     }
 

@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.br.meufii.data.AppDataBase
 import com.br.meufii.model.CardResumoAtivo
+import com.br.meufii.model.HomeResumoAtivo
+import com.br.meufii.model.Operacao
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
@@ -14,6 +16,8 @@ class HomeViewModel(var database: AppDataBase) : ViewModel() {
     val requestResumoLiveData = MutableLiveData<Document>()
     val processaResumoLiveData = MutableLiveData<ArrayList<String>>()
     var requestAtivosLocalLiveData = MutableLiveData<List<CardResumoAtivo>>()
+    var requestUltimasOperacoesLocalLiveData = MutableLiveData<List<Operacao>>()
+    var requestResumoAtivosLocalLiveData = MutableLiveData<HomeResumoAtivo>()
 
     companion object {
         private const val ativo = "XPCM11"
@@ -29,6 +33,14 @@ class HomeViewModel(var database: AppDataBase) : ViewModel() {
 
     fun buscaAtivosLocal() {
         requestAtivosLocalLiveData.value = database.ativoDao().getAllCardResumoAtivos()
+    }
+
+    fun buscaResumoAtivosLocal() {
+        requestResumoAtivosLocalLiveData.value = database.ativoDao().getResumoAtivos()
+    }
+
+    fun buscaUltimasOperacoesLocal() {
+        requestUltimasOperacoesLocalLiveData.value = database.operacaoDao().getAllUltimasOperacoes()
     }
 
     fun processaDadosResumoFii(doc: Document) {
