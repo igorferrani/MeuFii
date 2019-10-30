@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:hint="Data da movimentação"
-                    android:inputType="number" />
+                    android:inputType="date" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

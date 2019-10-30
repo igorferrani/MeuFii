@@ -84,7 +84,7 @@ class HomeActivity : AppCompatActivity() {
             openOperacao(it)
         }
 
-        rvUltimasOperacoes.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvUltimasOperacoes.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvUltimasOperacoes.adapter = adapterUltimasOperacoes
     }
 
